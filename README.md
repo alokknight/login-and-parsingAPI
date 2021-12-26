@@ -1,3 +1,5 @@
+![logo](https://github.com/alokknight/smartserve/blob/main/smartservelogo.jpg)
+
 # smartserve
 =====
 
@@ -42,6 +44,14 @@ To run the tests, check your test coverage, and generate an HTML coverage report
     $ coverage run -m pytest
     $ coverage html
     $ open htmlcov/index.html
+![login Text](https://github.com/alokknight/smartserve/blob/main/login.jpg)
+![Optional Text](https://github.com/alokknight/smartserve/blob/main/register.jpg)
+![Optional Text](https://github.com/alokknight/smartserve/blob/main/ParseApi.jpg)
+![Optional Text](https://github.com/alokknight/smartserve/blob/main/dashboard.jpg)
+![Optional Text](https://github.com/alokknight/smartserve/blob/main/ImportCSVJSON.jpg)
+
+
+
 
 Running tests with py.test
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
