@@ -1,0 +1,184 @@
+{% extends 'account/base.html'%}
+{% block title %}{% endblock %}
+{% block body %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<style>
+	* {
+	  box-sizing: border-box;
+	}
+
+	.box {
+	  float: left;
+	  width: 24%;
+	  padding: 20px;
+	  margin:5px;
+	  border-left:solid green 8px;
+	  box-shadow: 4px 6px #ccffcc;
+	  background:grey;
+
+	}
+
+	.clearfix::after {
+	  content: "";
+	  clear: both;
+	  display: table;
+	}
+	@media screen and (max-width: 600px) {
+		.column {
+		  width: 100%;
+		}
+	  }
+
+
+
+
+
+.canvasContainer
+{
+	position: absolute;
+    left: 30px;
+    right: 750px;
+    top: 380px;
+    bottom: 0px;
+    z-index: 1;
+	background-color: #ccffff;
+
+}
+.canvasContainer2
+{
+    position: absolute;
+    left: 750px;
+    right: 60px;
+    top: 380px;
+    bottom: 0px;
+    z-index: 1;
+	background-color: #ccffff;
+}
+.contextCanvas
+{   position: relative;
+    height: 100%;
+	width:100%;
+	max-width:500px
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+}
+.contextCanvas2
+{   position: relative;
+    width: 100%;
+	max-width:500px;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+}
+</style>
+
+
+	<h2>Company Matrix</h2>
+	<div class="clearfix">
+	  <div class="box" style="background-color:#bbb">
+	  <b><font color="green">423,456.98$</font></b>
+	  <p style="text-color:red;">TOtal Revanue.</p>
+	  </div>
+	  <div class="box" style="background-color:#ccc">
+		<b>23423</b>
+	  <p>Total Jobs avg.</p>
+	  </div>
+	  <div class="box" style="background-color:#ddd">
+		<b>45232</b>
+	  <p>Ticket Created.</p>
+	  </div>
+	  <div class="box" style="background-color:#bbb">
+		<b>24999</b>
+	  <p>Ticket Sheduled.</p>
+	  </div>
+	  <div class="box" style="background-color:#ccc">
+		<b><font color="red">345,456.98$</font></b>
+	  <p>OutStanding Amount.</p>
+	  </div>
+	  <div class="box" style="background-color:#ddd">
+		<b>24352</b>
+	  <p>Membership Sold.</p>
+	  </div>
+	  <div class="box" style="background-color:#bbb">
+		<b>234543</b>
+	  <p>Job Completed.</p>
+	  </div>
+	  <div class="box" style="background-color:#ccc">
+		<b>65</b>
+	  <p>Total Cancled.</p>
+	  </div>
+	</div>
+
+
+<div class="canvasContainer">
+	{% comment %} <canvas class="contextCanvas" id="myChart" style="width:100%;max-width:500px;position: absolute; z-index: 0"></canvas> {% endcomment %}
+	<canvas class="contextCanvas" id="myChart" ></canvas>
+</div>
+
+<script>
+
+var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+var yValues = [55, 49, 44, 24, 15];
+var barColors = ["red", "green","blue","orange","brown"];
+
+new Chart("myChart", {
+  type: "horizontalBar",
+  data: {
+  labels: xValues,
+  datasets: [{
+    backgroundColor: barColors,
+    data: yValues
+  }]
+},
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "Revanue by job location"
+    },
+    scales: {
+      xAxes: [{ticks: {min: 10, max:60}}]
+    }
+  }
+});
+</script>
+
+{% comment %} <canvas id="myChart2" style="width:100%;max-width:500px;position: relative; z-index: 0"></canvas> {% endcomment %}
+
+<div class="canvasContainer2">
+	{% comment %} <canvas class="contextCanvas" id="myChart" style="width:100%;max-width:500px;position: absolute; z-index: 0"></canvas> {% endcomment %}
+	<canvas class="contextCanvas2" id="myChart2"></canvas>
+</div>
+<script>
+var xValues2 = ["Italy", "France", "Spain", "USA", "Argentina"];
+var yValues2 = [23, 41, 14, 54, 25];
+var barColors = ["red", "green","blue","orange","brown"];
+
+new Chart("myChart2", {
+  type: "horizontalBar",
+  data: {
+  labels: xValues2,
+  datasets: [{
+    backgroundColor: barColors,
+    data: yValues2
+  }]
+},
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "Revanue by job Type"
+    },
+    scales: {
+      xAxes: [{ticks: {min: 10, max:60}}]
+    }
+  }
+});
+
+{% comment %} <canvas id="myCanvas" width="200" height="100" style="border:1px solid #fdsfsd;"></canvas> {% endcomment %}
+</script>
+{% endblock body %}
+

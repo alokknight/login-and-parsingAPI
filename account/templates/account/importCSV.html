@@ -1,0 +1,45 @@
+{% extends 'account/base.html'%}
+{% block title %}{% endblock %}
+{% block body %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<style>
+	* {
+	  box-sizing: border-box;
+	}
+
+	.box {
+	  float: left;
+	  width: 24%;
+	  padding: 20px;
+	  margin:5px;
+	  box-shadow: 4px 6px #ccffcc;
+	  background:grey;
+	}
+
+	.clearfix::after {
+	  content: "";
+	  clear: both;
+	  display: table;
+	}
+	@media screen and (max-width: 600px) {
+		.column {
+		  width: 100%;
+		}
+	  }
+</style>
+
+	<h2>Import Product</h2>
+	<div class="clearfix">
+	  <div class="box" style="background-color:#bbb">
+	  <b><font color="green">423,456.98$</font></b>
+	  <p style="text-color:red;">TOtal Revanue.</p>
+	  </div>
+	  <div class="box" style="background-color:#ccc">
+		<b>23423</b>
+	  <p>Total Jobs avg.</p>
+	  </div>
+	</div>
+
+{% endblock body %}
+

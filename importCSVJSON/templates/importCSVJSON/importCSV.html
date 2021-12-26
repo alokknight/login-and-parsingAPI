@@ -1,0 +1,167 @@
+{% extends 'account/base.html'%}
+{% block title %}{% endblock %}
+{% block body %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<style>
+	* {
+	  box-sizing: border-box;
+	}
+
+	.box {
+	  float: left;
+	  width: 48%;
+	  padding: 20px;
+	  margin:5px;
+	  box-shadow: 4px 6px #ccffcc;
+	  background:grey;
+	}
+	.xyz {
+		float: left;
+		width: 100%;
+		padding: 20px;
+		margin:5px;
+		box-shadow: 4px 6px #ccsfcc;
+		background:grey;
+
+	  }
+	.x1 {
+		float: left;
+		width: 150px;
+		padding: 20px;
+		margin:20px;
+		box-shadow: 4px 6px #ccsfcc;
+		background:grey;
+
+	  }
+
+	.x2 {
+		float: left;
+		width: 150px;
+		padding: 20px;
+		margin:20px;
+		box-shadow: 4px 6px #asaac;
+		background:grey;
+
+	}
+
+	.clearfix::after {
+	  content: "";
+	  clear: both;
+	  display: table;
+	}
+	.mark,mark{
+		position:absolute;
+		left:185px;
+		top:550px
+	}
+	.mark2, mark2{
+		position:absolute;
+		left:185px;
+		top:640px
+
+	}
+	@media screen and (max-width: 600px) {
+		.column {
+		  width: 100%;
+		}
+	  }
+</style>
+
+	<h2>Import Product</h2>
+	<div class="clearfix">
+	  <div class="box" style="background-color:#bbb">
+	  <b><font color="green">Select File</font></b>
+	  <p style="text-color:red;">Supported Files type (CSV, JSON).</p>
+	  <form action = "{% url 'fileupload' %}" method = "POST"  accept=".csv, .json" class = 'ui form' encrypt = "multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn -Success" type = 'submit'> confirm </button>
+	   </form>
+	  </div>
+
+	  <div class="box" style="background-color:#ccc">
+		<p style="text-color:red;"><b>Specify Formate</b>(File Type, Encoding, Delimiter)</p>
+
+		<form>
+			<div id="data">
+				<select multiple size="1">
+					<option>CSV</option>
+					<option>JSON</option>
+				</select>
+			</div>
+		</form>
+		<form>
+			<div id="data">
+				<select multiple size="1">
+					<option>UTF-8</option>
+					<option>4</option>
+
+				</select>
+			</div>
+		</form>
+		<form>
+			<div id="data">
+				<select multiple size="1">
+					<option>COMMA</option>
+					<option>SEMICOLON</option>
+				</select>
+			</div>
+		</form>
+
+	  </div>
+	</div>
+	<div class="xyz" style="background-color:#ccc">
+		<b>Display Handeling</b>
+		<p>Select The Fields To be Displayed </p>
+
+
+
+
+
+		<div class="x1" style="background-color:#ccc">
+			<form>
+				<div id="data">
+					<p>available Fileds<p>
+					<select multiple size="10">
+					<option>product id</option>
+					<option>Subcatogory</option>
+					<option>Title</option>
+					<option>price</option>
+					<option>Popularity</option>
+					<option>Description</option>
+					<option>Rating</option>
+					<option>UTM Source</option>
+					<option>UTM Medium</option>
+					</select>
+				</div>
+			</form>
+
+		</div>
+
+		<mark>>></mark>
+
+
+		<mark2><<</mark2>
+		<form>
+			<div id="data">
+				<p>Fields to be displayed</p>
+				<select multiple size="10">
+				<option>product id</option>
+				<option>Subcatogory</option>
+				<option>Title</option>
+
+
+				</select>
+			</div>
+		</form>
+
+		<div class="x2" style="background-color:#ccc">
+
+
+		</div>
+
+	</div>
+
+{% endblock body %}
+
