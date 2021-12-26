@@ -8,5 +8,4 @@ psycopg2==2.9.1  # https://github.com/psycopg/psycopg2
 # Django
 # ------------------------------------------------------------------------------
 django-anymail==8.4  # https://github.com/anymail/django-anymail
-heroku==0.1.4
 django-heroku==0.3.1
