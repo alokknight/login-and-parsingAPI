@@ -37,8 +37,6 @@ INSTALLED_APPS = [
     'parseapi',
     'account',
     'importCSVJSON',
-    # 'social-auth',
-    'social_django',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,7 +56,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware',#
 ]
 
 ROOT_URLCONF = 'smartserve.urls'
