@@ -6,8 +6,6 @@ from .models import Csv
 import csv
 import pandas as pd
 from django.core.files.storage import FileSystemStorage
-# Create your views here.
-
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 
@@ -35,6 +33,7 @@ class UploadView(CreateView):
 
 
 #     # # if request.method == 'POST' and request.FILES["myfile"]:
+            # myfile = form.cleaned_data['myfile']
 #     # #     myfile = request.FILES["myfile"]
 #     # #     print('\nWhat is `myfile`?')
 #     # #     print(type(myfile))
@@ -124,3 +123,69 @@ def data_analysis(request):
                        'df': df.to_html()})
 
     return render(request, 'importCSVJSON/data_analysis.html')
+
+
+###########################################################################################
+#####https://stackoverflow.com/questions/62912039/uploading-csv-file-django-using-a-form#####################################################################################
+
+import csv
+def save_new_students_from_csv(file_path):
+    # do try catch accordingly
+    # open csv file, read lines
+    with open(file_path, 'r') as fp:
+        students = csv.reader(fp, delimiter=',')
+        row = 0
+        for student in students:
+            if row==0:
+                headers = student
+                row = row + 1
+            else:
+                # create a dictionary of student details
+                new_student_details = {}
+                for i in range(len(headers)):
+                    new_student_details[headers[i]] = student[i]
+
+                # for the foreign key field current_class in Student you should get the object first and reassign the value to the key
+                new_student_details['current_class'] = StudentClass.objects.get() # get the record according to value which is stored in db and csv file
+
+                # create an instance of Student model
+                new_student = Student()
+                new_student.__dict__.update(new_student_details)
+                new_student.save()
+                row = row + 1
+        fp.close()
+##--------------------------------------------------
+def uploadcsv(request):
+    if request.method == 'GET':
+        form = StudentBulkUploadForm()
+        return render(request, 'students/students_upload.html', {'form':form})
+
+    # If not GET method then proceed
+    try:
+        form = StudentBulkUploadForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            csv_file = form.cleaned_data['csv_file']
+            if not csv_file.name.endswith('.csv'):
+                messages.error(request, 'File is not CSV type')
+                return redirect('students:student-upload')
+            # If file is too large
+            if csv_file.multiple_chunks():
+                messages.error(request, 'Uploaded file is too big (%.2f MB)' %(csv_file.size(1000*1000),))
+                return redirect('students:student-upload')
+
+            # save and upload file
+            form.save()
+
+            # get the path of the file saved in the server
+            file_path = os.path.join(BASE_DIR, form.csv_file.url)
+
+            # a function to read the file contents and save the student details
+            save_new_students_from_csv(file_path)
+            # do try catch if necessary
+
+    except Exception as e:
+        logging.getLogger('error_logger').error('Unable to upload file. ' + repr(e))
+        messages.error(request, 'Unable to upload file. ' + repr(e))
+    return redirect('students:student-upload')
+
+###################################################################################################################

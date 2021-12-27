@@ -3,6 +3,76 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User,auth
 from django.contrib.auth import authenticate,login,logout
 
+
+def isValid(password):
+
+    # for checking if password length
+    # is between 8 and 16
+    if (len(password) < 8 or len(password) > 16):
+        return False
+
+    # to check space
+    if (" " in password):
+        return False
+
+    if (True):
+        count = 0
+
+        # check digits from 0 to 9
+        arr = ['0', '1', '2', '3',
+        '4', '5', '6', '7', '8', '9']
+
+        for i in password:
+            if i in arr:
+                count = 1
+                break
+        if count == 0:
+            return False
+
+    # for special characters
+    if True:
+        count = 0
+        arr = ['#','!','~','$','%','^',
+                '&','*','(',',','-','+','/',
+                ':','.',',','<','>','?','|']
+
+        for i in password:
+            if i  in arr:
+                return False
+
+    if True:
+        count = 0
+
+        # checking capital letters
+        for i in range(65, 91):
+            if chr(i) in password:
+                count = 1
+        if (count == 0):
+            return False
+
+    if True:
+        count = 0
+
+        # checking '@
+        if '@' in password:
+            count = 1
+        if (count == 0):
+            return False
+
+    if (True):
+        count = 0
+
+        # checking small letters
+        for i in range(90, 123):
+            if chr(i) in password:
+                count = 1
+        if (count == 0):
+            return False
+
+    # if all conditions fails
+    return True
+
+
 # Create your views here.
 def register(request):
     if request.method == 'POST':
@@ -11,9 +81,12 @@ def register(request):
         username = request.POST.get('username')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
-        email = request.POST.get('email')
+        email = username
         if password1 == password2:
-            if User.objects.filter(username=username).exists():
+            if not isValid([i for i in password1]):
+                messages.error(request,"USe only alpha, nums, Capital and @")
+                return redirect('/account/register/')
+            elif User.objects.filter(username=username).exists():
                 print("usernametaken")
                 messages.error(request,"Username taken")
                 return redirect('/account/register/')
